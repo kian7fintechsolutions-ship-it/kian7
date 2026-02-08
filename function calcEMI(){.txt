@@ -1,0 +1,35 @@
+function calcEMI(){
+  const P = document.getElementById("loan").value;
+  const r = document.getElementById("rate").value / 12 / 100;
+  const n = document.getElementById("tenure").value * 12;
+
+  if(!P || !r || !n){
+    document.getElementById("emiResult").innerText = "Please enter all values";
+    return;
+  }
+
+  const emi = P * r * (Math.pow(1+r, n)) / (Math.pow(1+r, n) - 1);
+  document.getElementById("emiResult").innerText =
+    "Monthly EMI: ₹" + emi.toFixed(0);
+}
+
+function toggleChat(){
+  const bot = document.getElementById("chatbot");
+  bot.style.display = bot.style.display === "flex" ? "none" : "flex";
+}
+
+function sendChat(){
+  const input = document.getElementById("chatInput");
+  const body = document.getElementById("chatBody");
+  const msg = input.value.trim();
+
+  if(!msg) return;
+
+  body.innerHTML += `
+    <p><b>You:</b> ${msg}</p>
+    <p><b>Assistant:</b> Our team will guide you. Please request consultation.</p>
+  `;
+
+  body.scrollTop = body.scrollHeight;
+  input.value = "";
+}
